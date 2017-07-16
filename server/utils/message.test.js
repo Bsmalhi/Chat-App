@@ -2,7 +2,7 @@ var expect = require('expect');
 
 var {generateMessage} = require('./message');
 
-describe('generate message', ()=>{
+describe('generateMessage', ()=>{
     it('should generate correct message object', ()=>{
         var from ='jen';
         var text = 'some message';
