@@ -14,16 +14,25 @@ var io = socketIO(server); //Using web socket server
 io.on( 'connection' ,(socket)=>{
     console.log('New user is connected');
 
-    socket.emit('newEmail', {
-        from: 'mbm@text.com',
-        text: 'Hey I sent you this',
-        createdAt: 123
+    socket.emit('newMessage', {
+        from: 'Admin',
+        text: 'Welcome to the chat app',
+        createdAt: new Date().getTime()
     });
-
+    socket.broadcast.emit('newMessage', {
+        from: 'Admin',
+        text: 'New user joined',
+        createdAt: new Date().getTime()
+    });
 
     socket.on('createMessage', (Message)=>{
         console.log('createMessage', Message);
-        io.emit('newMessage', {
+        // io.emit('newMessage', {
+        //     from: Message.from,
+        //     text: Message.text,
+        //     createdAt: new Date().getTime()
+        // });
+        socket.broadcast.emit('newMessage', {
             from: Message.from,
             text: Message.text,
             createdAt: new Date().getTime()
