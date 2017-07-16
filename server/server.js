@@ -20,14 +20,14 @@ io.on( 'connection' ,(socket)=>{
         createdAt: 123
     });
 
-    socket.emit('newMessage',{
-        from: 'john',
-        text: 'Seee yaa',
-        createdAt: 123
-    });
 
     socket.on('createMessage', (Message)=>{
         console.log('createMessage', Message);
+        io.emit('newMessage', {
+            from: Message.from,
+            text: Message.text,
+            createdAt: new Date().getTime()
+        });
     });
     
     socket.on('disconnect', ()=>{
