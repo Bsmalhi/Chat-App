@@ -13,11 +13,29 @@ var io = socketIO(server); //Using web socket server
 
 io.on( 'connection' ,(socket)=>{
     console.log('New user is connected');
+
+    socket.emit('newEmail', {
+        from: 'mbm@text.com',
+        text: 'Hey I sent you this',
+        createdAt: 123
+    });
+
+    socket.emit('newMessage',{
+        from: 'john',
+        text: 'Seee yaa',
+        createdAt: 123
+    });
+
+    socket.on('createMessage', (Message)=>{
+        console.log('createMessage', Message);
+    });
     
     socket.on('disconnect', ()=>{
             console.log('disconnected to server');
-        });
+    });
 });
+
+
 
 app.use(express.static(publicPath));
 
